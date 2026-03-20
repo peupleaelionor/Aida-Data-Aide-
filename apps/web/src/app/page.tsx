@@ -12,7 +12,7 @@ const features = [
   {
     icon: Brain,
     title: 'AI-Powered Matching',
-    description: 'Our GPT-4o engine analyses your profile and instantly identifies all benefits you qualify for.',
+    description: 'Our GPT-4o engine analyzes your profile and instantly identifies all benefits you qualify for.',
   },
   {
     icon: Globe,

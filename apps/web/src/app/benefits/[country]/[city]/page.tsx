@@ -27,7 +27,7 @@ export default function CityBenefitsPage({ params }: { params: { country: string
       </p>
       <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
         <p className="text-blue-800 font-medium">
-          Sign up free to get a personalised eligibility report for {cityName}.
+          Sign up free to get a personalized eligibility report for {cityName}.
         </p>
         <Link
           href="/register"
