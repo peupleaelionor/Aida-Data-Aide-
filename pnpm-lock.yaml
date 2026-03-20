@@ -24,7 +24,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/database
       '@langchain/core':
-        specifier: ^0.3.58
+        specifier: ^0.3.80
         version: 0.3.80(openai@4.104.0(zod@3.25.76))
       '@langchain/openai':
         specifier: ^0.3.16

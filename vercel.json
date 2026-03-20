@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter @aida/web build",
+  "buildCommand": "pnpm --filter @aida/database db:generate && pnpm --filter @aida/web build",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
   "installCommand": "pnpm install",
