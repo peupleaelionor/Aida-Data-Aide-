@@ -269,14 +269,14 @@ importers:
   packages/ai:
     dependencies:
       '@langchain/core':
-        specifier: ^0.2.5
-        version: 0.2.36(openai@4.104.0(zod@3.25.76))
+        specifier: ^0.3.80
+        version: 0.3.80(openai@4.104.0(zod@3.25.76))
       '@langchain/openai':
-        specifier: ^0.1.3
-        version: 0.1.3
+        specifier: ^0.3.16
+        version: 0.3.17(@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76)))
       langchain:
-        specifier: ^0.2.4
-        version: 0.2.20(axios@1.13.6)(cheerio@1.2.0)(handlebars@4.7.8)(ignore@5.3.2)(ioredis@5.10.1)(openai@4.104.0(zod@3.25.76))
+        specifier: ^0.3.0
+        version: 0.3.37(@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76)))(axios@1.13.6)(cheerio@1.2.0)(handlebars@4.7.8)(openai@4.104.0(zod@3.25.76))
       openai:
         specifier: ^4.47.1
         version: 4.104.0(zod@3.25.76)
@@ -775,16 +775,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@langchain/core@0.2.36':
-    resolution: {integrity: sha512-qHLvScqERDeH7y2cLuJaSAlMwg3f/3Oc9nayRSXRU2UuaK/SOhI42cxiPLj1FnuHJSmN0rBQFkrLx02gI4mcVg==}
-    engines: {node: '>=18'}
-
   '@langchain/core@0.3.80':
     resolution: {integrity: sha512-vcJDV2vk1AlCwSh3aBm/urQ1ZrlXFFBocv11bz/NBUfLWD5/UDNMzwPdaAd2dKvNmTWa9FM2lirLU3+JCf4cRA==}
-    engines: {node: '>=18'}
-
-  '@langchain/openai@0.1.3':
-    resolution: {integrity: sha512-riv/JC9x2A8b7GcHu8sx+mlZJ8KAwSSi231IPTlcciYnKozmrQ5H0vrtiD31fxiDbaRsk7tyCpkSBIOQEo7CyQ==}
     engines: {node: '>=18'}
 
   '@langchain/openai@0.3.17':
@@ -792,10 +784,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': '>=0.3.29 <0.4.0'
-
-  '@langchain/textsplitters@0.0.3':
-    resolution: {integrity: sha512-cXWgKE3sdWLSqAa8ykbCcUsUF1Kyr5J3HOWYGuobhPEycXW4WI++d5DhzdpL238mzoEXTi90VqfSCra37l5YqA==}
-    engines: {node: '>=18'}
 
   '@langchain/textsplitters@0.1.0':
     resolution: {integrity: sha512-djI4uw9rlkAb5iMhtLED+xJebDdAG935AdP4eRTB02R7OB/act55Bj9wsskhZsvuyQRpO4O1wQOp85s6T6GWmw==}
@@ -2297,10 +2285,6 @@ packages:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
 
-  commander@10.0.1:
-    resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
-    engines: {node: '>=14'}
-
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
@@ -3606,186 +3590,6 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
-  langchain@0.2.20:
-    resolution: {integrity: sha512-tbels6Rr524iMM3VOQ4aTGnEOOjAA1BQuBR8u/8gJ2yT48lMtIQRAN32Y4KVjKK+hEWxHHlmLBrtgLpTphFjNA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@aws-sdk/client-s3': '*'
-      '@aws-sdk/client-sagemaker-runtime': '*'
-      '@aws-sdk/client-sfn': '*'
-      '@aws-sdk/credential-provider-node': '*'
-      '@azure/storage-blob': '*'
-      '@browserbasehq/sdk': '*'
-      '@gomomento/sdk': '*'
-      '@gomomento/sdk-core': '*'
-      '@gomomento/sdk-web': ^1.51.1
-      '@langchain/anthropic': '*'
-      '@langchain/aws': '*'
-      '@langchain/cohere': '*'
-      '@langchain/google-genai': '*'
-      '@langchain/google-vertexai': '*'
-      '@langchain/groq': '*'
-      '@langchain/mistralai': '*'
-      '@langchain/ollama': '*'
-      '@mendable/firecrawl-js': '*'
-      '@notionhq/client': '*'
-      '@pinecone-database/pinecone': '*'
-      '@supabase/supabase-js': '*'
-      '@vercel/kv': '*'
-      '@xata.io/client': '*'
-      apify-client: '*'
-      assemblyai: '*'
-      axios: '*'
-      cheerio: '*'
-      chromadb: '*'
-      convex: '*'
-      couchbase: '*'
-      d3-dsv: '*'
-      epub2: '*'
-      faiss-node: '*'
-      fast-xml-parser: '*'
-      handlebars: ^4.7.8
-      html-to-text: '*'
-      ignore: '*'
-      ioredis: '*'
-      jsdom: '*'
-      mammoth: '*'
-      mongodb: '*'
-      node-llama-cpp: '*'
-      notion-to-md: '*'
-      officeparser: '*'
-      pdf-parse: '*'
-      peggy: ^3.0.2
-      playwright: '*'
-      puppeteer: '*'
-      pyodide: '>=0.24.1 <0.27.0'
-      redis: '*'
-      sonix-speech-recognition: '*'
-      srt-parser-2: '*'
-      typeorm: '*'
-      weaviate-ts-client: '*'
-      web-auth-library: '*'
-      ws: '*'
-      youtube-transcript: '*'
-      youtubei.js: '*'
-    peerDependenciesMeta:
-      '@aws-sdk/client-s3':
-        optional: true
-      '@aws-sdk/client-sagemaker-runtime':
-        optional: true
-      '@aws-sdk/client-sfn':
-        optional: true
-      '@aws-sdk/credential-provider-node':
-        optional: true
-      '@azure/storage-blob':
-        optional: true
-      '@browserbasehq/sdk':
-        optional: true
-      '@gomomento/sdk':
-        optional: true
-      '@gomomento/sdk-core':
-        optional: true
-      '@gomomento/sdk-web':
-        optional: true
-      '@langchain/anthropic':
-        optional: true
-      '@langchain/aws':
-        optional: true
-      '@langchain/cohere':
-        optional: true
-      '@langchain/google-genai':
-        optional: true
-      '@langchain/google-vertexai':
-        optional: true
-      '@langchain/groq':
-        optional: true
-      '@langchain/mistralai':
-        optional: true
-      '@langchain/ollama':
-        optional: true
-      '@mendable/firecrawl-js':
-        optional: true
-      '@notionhq/client':
-        optional: true
-      '@pinecone-database/pinecone':
-        optional: true
-      '@supabase/supabase-js':
-        optional: true
-      '@vercel/kv':
-        optional: true
-      '@xata.io/client':
-        optional: true
-      apify-client:
-        optional: true
-      assemblyai:
-        optional: true
-      axios:
-        optional: true
-      cheerio:
-        optional: true
-      chromadb:
-        optional: true
-      convex:
-        optional: true
-      couchbase:
-        optional: true
-      d3-dsv:
-        optional: true
-      epub2:
-        optional: true
-      faiss-node:
-        optional: true
-      fast-xml-parser:
-        optional: true
-      handlebars:
-        optional: true
-      html-to-text:
-        optional: true
-      ignore:
-        optional: true
-      ioredis:
-        optional: true
-      jsdom:
-        optional: true
-      mammoth:
-        optional: true
-      mongodb:
-        optional: true
-      node-llama-cpp:
-        optional: true
-      notion-to-md:
-        optional: true
-      officeparser:
-        optional: true
-      pdf-parse:
-        optional: true
-      peggy:
-        optional: true
-      playwright:
-        optional: true
-      puppeteer:
-        optional: true
-      pyodide:
-        optional: true
-      redis:
-        optional: true
-      sonix-speech-recognition:
-        optional: true
-      srt-parser-2:
-        optional: true
-      typeorm:
-        optional: true
-      weaviate-ts-client:
-        optional: true
-      web-auth-library:
-        optional: true
-      ws:
-        optional: true
-      youtube-transcript:
-        optional: true
-      youtubei.js:
-        optional: true
-
   langchain@0.3.37:
     resolution: {integrity: sha512-1jPsZ6xsxkcQPUvqRjvfuOLwZLLyt49hzcOK7OYAJovIkkOxd5gzK4Yw6giPUQ8g4XHyvULNlWBz+subdkcokw==}
     engines: {node: '>=18'}
@@ -3842,14 +3646,6 @@ packages:
       peggy:
         optional: true
       typeorm:
-        optional: true
-
-  langsmith@0.1.68:
-    resolution: {integrity: sha512-otmiysWtVAqzMx3CJ4PrtUBhWRG5Co8Z4o7hSZENPjlit9/j3/vm3TSvbaxpDYakZxtMjhkcJTqrdYFipISEiQ==}
-    peerDependencies:
-      openai: '*'
-    peerDependenciesMeta:
-      openai:
         optional: true
 
   langsmith@0.3.87:
@@ -5990,22 +5786,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@langchain/core@0.2.36(openai@4.104.0(zod@3.25.76))':
-    dependencies:
-      ansi-styles: 5.2.0
-      camelcase: 6.3.0
-      decamelize: 1.2.0
-      js-tiktoken: 1.0.21
-      langsmith: 0.1.68(openai@4.104.0(zod@3.25.76))
-      mustache: 4.2.0
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      uuid: 10.0.0
-      zod: 3.25.76
-      zod-to-json-schema: 3.25.1(zod@3.25.76)
-    transitivePeerDependencies:
-      - openai
-
   '@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
@@ -6026,17 +5806,6 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - openai
 
-  '@langchain/openai@0.1.3':
-    dependencies:
-      '@langchain/core': 0.2.36(openai@4.104.0(zod@3.25.76))
-      js-tiktoken: 1.0.21
-      openai: 4.104.0(zod@3.25.76)
-      zod: 3.25.76
-      zod-to-json-schema: 3.25.1(zod@3.25.76)
-    transitivePeerDependencies:
-      - encoding
-      - ws
-
   '@langchain/openai@0.3.17(@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76)))':
     dependencies:
       '@langchain/core': 0.3.80(openai@4.104.0(zod@3.25.76))
@@ -6047,13 +5816,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - ws
-
-  '@langchain/textsplitters@0.0.3(openai@4.104.0(zod@3.25.76))':
-    dependencies:
-      '@langchain/core': 0.2.36(openai@4.104.0(zod@3.25.76))
-      js-tiktoken: 1.0.21
-    transitivePeerDependencies:
-      - openai
 
   '@langchain/textsplitters@0.1.0(@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76)))':
     dependencies:
@@ -7664,8 +7426,6 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
-
-  commander@10.0.1: {}
 
   commander@2.20.3: {}
 
@@ -9396,32 +9156,6 @@ snapshots:
 
   kleur@3.0.3: {}
 
-  langchain@0.2.20(axios@1.13.6)(cheerio@1.2.0)(handlebars@4.7.8)(ignore@5.3.2)(ioredis@5.10.1)(openai@4.104.0(zod@3.25.76)):
-    dependencies:
-      '@langchain/core': 0.2.36(openai@4.104.0(zod@3.25.76))
-      '@langchain/openai': 0.1.3
-      '@langchain/textsplitters': 0.0.3(openai@4.104.0(zod@3.25.76))
-      binary-extensions: 2.3.0
-      js-tiktoken: 1.0.21
-      js-yaml: 4.1.1
-      jsonpointer: 5.0.1
-      langsmith: 0.1.68(openai@4.104.0(zod@3.25.76))
-      openapi-types: 12.1.3
-      p-retry: 4.6.2
-      uuid: 10.0.0
-      yaml: 2.8.2
-      zod: 3.25.76
-      zod-to-json-schema: 3.25.1(zod@3.25.76)
-    optionalDependencies:
-      axios: 1.13.6
-      cheerio: 1.2.0
-      handlebars: 4.7.8
-      ignore: 5.3.2
-      ioredis: 5.10.1
-    transitivePeerDependencies:
-      - encoding
-      - openai
-
   langchain@0.3.37(@langchain/core@0.3.80(openai@4.104.0(zod@3.25.76)))(axios@1.13.6)(cheerio@1.2.0)(handlebars@4.7.8)(openai@4.104.0(zod@3.25.76)):
     dependencies:
       '@langchain/core': 0.3.80(openai@4.104.0(zod@3.25.76))
@@ -9447,17 +9181,6 @@ snapshots:
       - encoding
       - openai
       - ws
-
-  langsmith@0.1.68(openai@4.104.0(zod@3.25.76)):
-    dependencies:
-      '@types/uuid': 10.0.0
-      commander: 10.0.1
-      p-queue: 6.6.2
-      p-retry: 4.6.2
-      semver: 7.7.4
-      uuid: 10.0.0
-    optionalDependencies:
-      openai: 4.104.0(zod@3.25.76)
 
   langsmith@0.3.87(openai@4.104.0(zod@3.25.76)):
     dependencies:
