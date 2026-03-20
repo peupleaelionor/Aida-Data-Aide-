@@ -88,7 +88,7 @@ export default async function ApplicationsPage() {
         <div className="text-center py-20 text-gray-400">
           <FileText className="h-12 w-12 mx-auto mb-4 opacity-40" />
           <p className="text-lg font-medium">No applications yet</p>
-          <Link href="/benefits/us" className="mt-4 inline-block text-blue-600 hover:underline">Browse benefits</Link>
+          <Link href="/explore/us" className="mt-4 inline-block text-blue-600 hover:underline">Browse benefits</Link>
         </div>
       )}
     </div>

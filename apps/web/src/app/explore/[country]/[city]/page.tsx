@@ -17,7 +17,7 @@ export default function CityBenefitsPage({ params }: { params: { country: string
       <nav className="text-sm text-gray-500 mb-6">
         <Link href="/" className="hover:text-blue-600">Home</Link>
         {' / '}
-        <Link href={'/benefits/' + params.country} className="hover:text-blue-600 capitalize">{params.country}</Link>
+        <Link href={'/explore/' + params.country} className="hover:text-blue-600 capitalize">{params.country}</Link>
         {' / '}
         <span className="text-gray-900">{cityName}</span>
       </nav>
