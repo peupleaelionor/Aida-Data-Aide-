@@ -52,25 +52,68 @@ enum ApplicationStatus {
   review
   approved
   rejected
+  cancelled
+}
+
+enum DocumentStatus {
+  required
+  uploaded
+  verified
+  rejected
+}
+
+enum NotificationType {
+  deadline_reminder
+  status_update
+  new_benefit
+  document_required
+  payment_received
+  system
+}
+
+enum CrawlStatus {
+  pending
+  running
+  completed
+  failed
+}
+
+enum RuleOperator {
+  eq
+  neq
+  lt
+  lte
+  gt
+  gte
+  in_list
+  nin_list
+  contains
 }
 
 model User {
-  id           String           @id @default(cuid())
-  name         String?
-  email        String           @unique
-  emailVerified DateTime?
-  password     String?
-  image        String?
-  role         UserRole         @default(user)
-  subscription SubscriptionTier @default(free)
-  stripeCustomerId String?      @unique
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  id               String           @id @default(cuid())
+  name             String?
+  email            String           @unique
+  emailVerified    DateTime?
+  password         String?
+  image            String?
+  role             UserRole         @default(user)
+  subscription     SubscriptionTier @default(free)
+  stripeCustomerId String?          @unique
+  notifyEmail      Boolean          @default(true)
+  notifyInApp      Boolean          @default(true)
+  locale           String           @default("en")
+  timezone         String           @default("UTC")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 
-  profile      Profile?
-  applications Application[]
-  accounts     Account[]
-  sessions     Session[]
+  profile         Profile?
+  applications    Application[]
+  notifications   Notification[]
+  analyticsEvents AnalyticsEvent[]
+  privacyLogs     PrivacyLog[]
+  accounts        Account[]
+  sessions        Session[]
 
   @@index([email])
   @@map("users")
@@ -81,13 +124,20 @@ model Profile {
   userId           String           @unique
   householdSize    Int              @default(1)
   monthlyIncome    Float            @default(0)
+  annualIncome     Float            @default(0)
   employmentStatus EmploymentStatus @default(employed)
-  country          String           @default("US")
+  country          String           @default("FR")
+  region           String?
   state            String?
   city             String?
+  postalCode       String?
   hasDisability    Boolean          @default(false)
   hasChildren      Boolean          @default(false)
+  childrenCount    Int              @default(0)
   isVeteran        Boolean          @default(false)
+  isStudent        Boolean          @default(false)
+  age              Int?
+  housingStatus    String?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
 
@@ -96,29 +146,137 @@ model Profile {
   @@map("profiles")
 }
 
-model Benefit {
-  id                  String          @id @default(cuid())
-  slug                String          @unique
-  name                String
-  description         String          @db.Text
-  category            BenefitCategory @default(other)
-  country             String
-  state               String?
-  amount              String
-  currency            String          @default("USD")
-  eligibilitySummary  String          @db.Text
-  applicationUrl      String?
-  isActive            Boolean         @default(true)
-  lastCrawledAt       DateTime?
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
+model BenefitCategoryDef {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  nameEn      String
+  nameFr      String?
+  nameEs      String?
+  nameDe      String?
+  icon        String?
+  color       String?
+  description String?   @db.Text
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-  applications Application[]
+  benefits    Benefit[]
+
+  @@map("benefit_category_defs")
+}
+
+model Region {
+  id         String    @id @default(cuid())
+  country    String
+  code       String
+  name       String
+  nameLocal  String?
+  type       String    @default("region")
+  parentId   String?
+  latitude   Float?
+  longitude  Float?
+  population Int?
+  createdAt  DateTime  @default(now())
+
+  parent   Region?  @relation("RegionHierarchy", fields: [parentId], references: [id])
+  children Region[] @relation("RegionHierarchy")
+  benefits Benefit[]
+
+  @@unique([country, code])
+  @@index([country])
+  @@map("regions")
+}
+
+model GovernmentSource {
+  id                  String    @id @default(cuid())
+  name                String
+  country             String
+  region              String?
+  baseUrl             String
+  crawlUrl            String?
+  crawlSelector       String?
+  crawlType           String    @default("html")
+  isActive            Boolean   @default(true)
+  lastCrawledAt       DateTime?
+  crawlFrequencyHours Int       @default(24)
+  contactEmail        String?
+  notes               String?   @db.Text
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  crawlJobs CrawlJob[]
+  benefits  Benefit[]
+
+  @@index([country])
+  @@map("government_sources")
+}
+
+model Benefit {
+  id                 String              @id @default(cuid())
+  slug               String              @unique
+  name               String
+  nameLocal          String?
+  description        String              @db.Text
+  shortDescription   String?             @db.VarChar(500)
+  category           BenefitCategory     @default(other)
+  categoryDefId      String?
+  country            String
+  regionId           String?
+  state              String?
+  city               String?
+  sourceId           String?
+  amount             String?
+  minAmount          Float?
+  maxAmount          Float?
+  currency           String              @default("EUR")
+  frequency          String?
+  eligibilitySummary String              @db.Text
+  applicationUrl     String?
+  documentsRequired  String[]
+  tags               String[]
+  isActive           Boolean             @default(true)
+  isVerified         Boolean             @default(false)
+  lastCrawledAt      DateTime?
+  publishedAt        DateTime?
+  expiresAt          DateTime?
+  viewCount          Int                 @default(0)
+  applyCount         Int                 @default(0)
+  metaTitle          String?
+  metaDescription    String?
+  schemaOrg          Json?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  categoryDef      BenefitCategoryDef? @relation(fields: [categoryDefId], references: [id])
+  region           Region?             @relation(fields: [regionId], references: [id])
+  source           GovernmentSource?   @relation(fields: [sourceId], references: [id])
+  applications     Application[]
+  eligibilityRules EligibilityRule[]
 
   @@index([country])
   @@index([category])
   @@index([slug])
+  @@index([isActive])
   @@map("benefits")
+}
+
+model EligibilityRule {
+  id          String       @id @default(cuid())
+  benefitId   String
+  field       String
+  operator    RuleOperator
+  value       Json
+  weight      Float        @default(1.0)
+  isRequired  Boolean      @default(true)
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  benefit Benefit @relation(fields: [benefitId], references: [id], onDelete: Cascade)
+
+  @@index([benefitId])
+  @@map("eligibility_rules")
 }
 
 model Application {
@@ -127,18 +285,146 @@ model Application {
   benefitId   String
   status      ApplicationStatus @default(draft)
   notes       String?           @db.Text
+  deadline    DateTime?
   submittedAt DateTime?
   decidedAt   DateTime?
+  amount      Float?
+  reference   String?           @unique @default(cuid())
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  benefit Benefit @relation(fields: [benefitId], references: [id])
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  benefit       Benefit         @relation(fields: [benefitId], references: [id])
+  documents     AppDocument[]
+  statusHistory StatusHistory[]
 
   @@unique([userId, benefitId])
   @@index([userId])
   @@index([benefitId])
+  @@index([status])
   @@map("applications")
+}
+
+model AppDocument {
+  id             String         @id @default(cuid())
+  applicationId  String
+  name           String
+  description    String?
+  fileUrl        String?
+  fileSize       Int?
+  mimeType       String?
+  status         DocumentStatus @default(required)
+  verifiedAt     DateTime?
+  rejectedAt     DateTime?
+  rejectedReason String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@map("app_documents")
+}
+
+model StatusHistory {
+  id            String            @id @default(cuid())
+  applicationId String
+  status        ApplicationStatus
+  note          String?
+  changedBy     String?
+  createdAt     DateTime          @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@map("status_history")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  body      String           @db.Text
+  link      String?
+  isRead    Boolean          @default(false)
+  sentEmail Boolean          @default(false)
+  data      Json?
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@map("notifications")
+}
+
+model CrawlJob {
+  id              String      @id @default(cuid())
+  sourceId        String
+  status          CrawlStatus @default(pending)
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  benefitsFound   Int         @default(0)
+  benefitsNew     Int         @default(0)
+  benefitsUpdated Int         @default(0)
+  errorsCount     Int         @default(0)
+  errorLog        String?     @db.Text
+  rawData         Json?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  source GovernmentSource @relation(fields: [sourceId], references: [id])
+
+  @@index([sourceId])
+  @@index([status])
+  @@map("crawl_jobs")
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  event     String
+  page      String?
+  data      Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([event])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("analytics_events")
+}
+
+model PrivacyLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  resource  String?
+  data      Json?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("privacy_logs")
+}
+
+model SitemapEntry {
+  id         String   @id @default(cuid())
+  url        String   @unique
+  changefreq String   @default("weekly")
+  priority   Float    @default(0.5)
+  lastmod    DateTime @default(now())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("sitemap_entries")
 }
 
 // NextAuth.js models
