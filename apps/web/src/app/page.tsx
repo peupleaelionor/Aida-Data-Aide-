@@ -91,7 +91,7 @@ export default function HomePage() {
             AIDA
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-            <Link href="/benefits/us" className="hover:text-blue-600 transition-colors">Benefits</Link>
+            <Link href="/explore/us" className="hover:text-blue-600 transition-colors">Benefits</Link>
             <Link href="#features" className="hover:text-blue-600 transition-colors">Features</Link>
             <Link href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
           </div>
@@ -130,7 +130,7 @@ export default function HomePage() {
               Check my eligibility free <ArrowRight className="h-5 w-5" />
             </Link>
             <Link
-              href="/benefits/us"
+              href="/explore/us"
               className="inline-flex items-center gap-2 rounded-xl border-2 border-gray-200 bg-white px-8 py-4 text-base font-semibold text-gray-700 hover:border-blue-300 transition-colors"
             >
               Browse US benefits

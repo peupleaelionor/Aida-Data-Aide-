@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { prisma } from '@aida/database'
+import { prisma, type BenefitCategory } from '@aida/database'
 import type { CreateBenefitDto } from './dto/create-benefit.dto'
 
 @Injectable()
@@ -10,7 +10,7 @@ export class BenefitsService {
     const where = {
       isActive: true,
       ...(country && { country: country.toUpperCase() }),
-      ...(category && { category }),
+      ...(category && { category: category as BenefitCategory }),
     }
     const [data, total] = await Promise.all([
       prisma.benefit.findMany({ where, skip, take: limit, orderBy: { name: 'asc' } }),

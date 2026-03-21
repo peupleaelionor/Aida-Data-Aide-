@@ -1,7 +1,7 @@
 import { ArrowLeft, CheckCircle, XCircle, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
-export default function BenefitDetailPage({ params }: { params: { id: string } }) {
+export default function BenefitDetailPage({ params: _params }: { params: { id: string } }) {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Link href="/benefits" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 mb-6 transition-colors">

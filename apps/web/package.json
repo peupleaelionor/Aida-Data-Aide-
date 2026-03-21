@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aida/database": "*",
-    "@aida/ui": "*",
-    "@aida/auth": "*",
+    "@aida/database": "workspace:*",
+    "@aida/ui": "workspace:*",
+    "@aida/auth": "workspace:*",
+    "@auth/prisma-adapter": "^2.4.0",
+    "bcryptjs": "^2.4.3",
     "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -38,6 +40,7 @@
     "recharts": "^2.12.7"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
@@ -46,6 +49,8 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "@typescript-eslint/eslint-plugin": "^7.10.0",
+    "@typescript-eslint/parser": "^7.10.0"
   }
 }

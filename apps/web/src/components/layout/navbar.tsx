@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
-import { Brain, Menu, X, ChevronDown } from 'lucide-react'
+import { Brain, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 export function Navbar() {
@@ -18,7 +18,7 @@ export function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-          <Link href="/benefits/us" className="hover:text-blue-600 transition-colors">Benefits</Link>
+          <Link href="/explore/us" className="hover:text-blue-600 transition-colors">Benefits</Link>
           <Link href="#features" className="hover:text-blue-600 transition-colors">Features</Link>
           <Link href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</Link>
         </div>
@@ -62,7 +62,7 @@ export function Navbar() {
 
       {mobileOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-3">
-          <Link href="/benefits/us" className="block text-sm font-medium text-gray-700">Benefits</Link>
+          <Link href="/explore/us" className="block text-sm font-medium text-gray-700">Benefits</Link>
           <Link href="#pricing" className="block text-sm font-medium text-gray-700">Pricing</Link>
           {session ? (
             <>

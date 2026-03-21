@@ -46,7 +46,7 @@ export default function CountryBenefitsPage({ params }: { params: { country: str
             {cities.map((city) => (
               <Link
                 key={city}
-                href={'/benefits/' + params.country + '/' + city}
+                href={'/explore/' + params.country + '/' + city}
                 className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:border-blue-300 hover:text-blue-600 capitalize transition-colors"
               >
                 {city.replace(/-/g, ' ')}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle, XCircle, AlertCircle, ChevronRight, Loader2 } from 'lucide-react'
+import { CheckCircle, XCircle, ChevronRight, Loader2 } from 'lucide-react'
 
 const MOCK_ELIGIBILITY_RESULTS = [
   { benefitId: '1', benefitName: 'SNAP Food Assistance', eligible: true, score: 92, reasons: ['Income qualifies', 'Household size matches'] },
