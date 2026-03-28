@@ -1,0 +1,16 @@
+[build]
+  command = "pnpm --filter @aida/database db:generate && pnpm --filter @aida/web build"
+  publish = "apps/web/.next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# The API_URL environment variable must be set in Netlify dashboard (Site > Environment variables)
+[[redirects]]
+  from = "/api/backend/*"
+  to = "${API_URL}/:splat"
+  status = 200
+  force = true
