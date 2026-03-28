@@ -2,7 +2,10 @@
   "name": "aida-monorepo",
   "version": "0.0.1",
   "private": true,
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -14,8 +17,9 @@
     "db:seed": "turbo run db:seed"
   },
   "devDependencies": {
-    "turbo": "^1.13.3",
+    "@netlify/plugin-nextjs": "^5.15.9",
     "prettier": "^3.2.5",
+    "turbo": "^1.13.3",
     "typescript": "^5.4.5"
   },
   "engines": {
